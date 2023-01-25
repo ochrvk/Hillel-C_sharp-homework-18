@@ -1,6 +1,8 @@
-﻿class Program
+﻿using System.Collections.Immutable;
+
+class Program
 {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
         Console.Write("Enter number of threads:");
         int threadsNumber = int.Parse(Console.ReadLine());
@@ -13,13 +15,16 @@
 
         for (int j = 0; j < threadsNumber; j++)
         {
-            await Task.Delay(1);
+
             tasks.Add(Task.Run(() =>
             {
                 for (int i = 0; i < iterationsNumber; i++)
+                {
+                    Task.Delay(1);
                     Console.WriteLine($"Thread id: {Task.CurrentId}," +
                     $" iteration number{i + 1}");
 
+                }
             }));
             //Please notice the next comment
             tasks[j].Wait();
@@ -27,13 +32,13 @@
             Console.WriteLine("----------");
         }
 
-        //If threads need to be calculated parallel, "tasks[j].Wait();" should be removed from the loop and the next loop should be added:
-        /*
-            foreach (var item in tasks)
-            {
-                item.Wait();
-            }
-        */
+        //If threads need to be calculated parallel, "tasks[j].Wait();" should be removed from the loop and the next loop should be added here:
+        /*        foreach (var item in tasks)
+                    {
+                        item.Wait();
+                    }*/
+
+
 
         Console.WriteLine("Done");
         Console.WriteLine("------------------------");
