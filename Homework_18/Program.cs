@@ -21,11 +21,19 @@
                     $" iteration number{i + 1}");
 
             }));
-
+            //Please notice the next comment
             tasks[j].Wait();
-           
+
             Console.WriteLine("----------");
         }
+
+        //If threads need to be calculated parallel, "tasks[j].Wait();" should be removed from the loop and the next loop should be added:
+        /*
+            foreach (var item in tasks)
+            {
+                item.Wait();
+            }
+        */
 
         Console.WriteLine("Done");
         Console.WriteLine("------------------------");
